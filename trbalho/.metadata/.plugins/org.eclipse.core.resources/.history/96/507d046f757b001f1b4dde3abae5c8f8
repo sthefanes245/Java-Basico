@@ -1,0 +1,40 @@
+package model;
+
+import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
+public class ProdutoAlimento extends Produto{
+	private LocalDate dataValidade;
+	
+	public ProdutoAlimento(String nome, double preco, int qtdEstoque, LocalDate dataValidade) {
+		super(nome, preco, qtdEstoque);
+		this.dataValidade = dataValidade;
+	}
+
+	public LocalDate getDataValidade() {
+		return dataValidade;
+	}
+
+	public void setDataValidade(LocalDate dataValidade) {
+		this.dataValidade = dataValidade;
+	}
+	
+	
+	@Override
+	public void cadastrar(Scanner scan) {
+		System.out.println("Digite a validade do produto(aaaa/mm/dd):");
+        String validade = scan.nextLine(); // Captura a entrada do usuário como String
+        
+        try {
+            // Converte a string para LocalDate
+            LocalDate dataValidade = LocalDate.parse(validade);
+            this.setDataValidade(dataValidade); // Define a data de validade
+        } catch (DateTimeParseException e) {
+            System.out.println("Formato de data inválido. Por favor, insira no formato: aaaa-mm-dd.");
+        }
+		
+	}
+	
+	
+}

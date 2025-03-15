@@ -1,0 +1,266 @@
+package view;
+
+import controller.ProdutoController;
+import model.Produto;
+import model.ProdutoEletronico;
+import model.ProdutoAlimento;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.util.List;
+
+public class ProdutoView extends JFrame {
+    private ProdutoController produtoController;
+
+    // Componentes de Cadastro
+    private JTextField campoNome;
+    private JTextField campoPreco;
+    private JTextField campoQuantidade;
+    private JTextField campoMarca;
+    private JTextField campoModelo;
+    private JTextField campoDataValidade;
+    private JButton botaoCadastrarEletronico;
+    private JButton botaoCadastrarAlimento;
+
+    // Componentes de Pesquisa
+    private JTextField campoPesquisaNome;
+    private JButton botaoPesquisar;
+    private JTextArea areaResultadoPesquisa;
+
+    // Componentes de Remoção
+    private JTextField campoRemocaoNome;
+    private JButton botaoRemover;
+
+    // Componentes de Listagem
+    private JButton botaoListar;
+    private JCheckBox checkboxOrdenar;
+    private JTextArea areaListaProdutos;
+
+    public ProdutoView() {
+        produtoController = new ProdutoController();
+        inicializarComponentes();
+    }
+
+    private void inicializarComponentes() {
+        setTitle("Sistema de Gerenciamento de Produtos");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(800, 600);
+        setLayout(new BorderLayout());
+
+        // Painel de Cadastro
+        JPanel painelCadastro = new JPanel(new GridLayout(7, 2, 5, 5));
+        painelCadastro.setBorder(BorderFactory.createTitledBorder("Cadastro de Produtos"));
+
+        campoNome = new JTextField();
+        campoPreco = new JTextField();
+        campoQuantidade = new JTextField();
+        campoMarca = new JTextField();
+        campoModelo = new JTextField();
+        campoDataValidade = new JTextField();
+
+        botaoCadastrarEletronico = new JButton("Cadastrar Produto Eletrônico");
+        botaoCadastrarAlimento = new JButton("Cadastrar Produto Alimentício");
+
+        painelCadastro.add(new JLabel("Nome:"));
+        painelCadastro.add(campoNome);
+        painelCadastro.add(new JLabel("Preço:"));
+        painelCadastro.add(campoPreco);
+        painelCadastro.add(new JLabel("Quantidade em Estoque:"));
+        painelCadastro.add(campoQuantidade);
+        painelCadastro.add(new JLabel("Marca:"));
+        painelCadastro.add(campoMarca);
+        painelCadastro.add(new JLabel("Modelo:"));
+        painelCadastro.add(campoModelo);
+        painelCadastro.add(new JLabel("Data de Validade (AAAA-MM-DD):"));
+        painelCadastro.add(campoDataValidade);
+        painelCadastro.add(botaoCadastrarEletronico);
+        painelCadastro.add(botaoCadastrarAlimento);
+
+        add(painelCadastro, BorderLayout.NORTH);
+
+        // Painel de Ações (Pesquisar, Remover, Listar)
+        JPanel painelAcoes = new JPanel(new GridLayout(3, 1, 5, 5));
+        painelAcoes.setBorder(BorderFactory.createTitledBorder("Ações"));
+
+        // Subpainel de Pesquisa
+        JPanel subPainelPesquisa = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        subPainelPesquisa.add(new JLabel("Pesquisar por Nome:"));
+        campoPesquisaNome = new JTextField(20);
+        botaoPesquisar = new JButton("Pesquisar");
+        subPainelPesquisa.add(campoPesquisaNome);
+        subPainelPesquisa.add(botaoPesquisar);
+
+        // Subpainel de Remoção
+        JPanel subPainelRemocao = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        subPainelRemocao.add(new JLabel("Remover por Nome:"));
+        campoRemocaoNome = new JTextField(20);
+        botaoRemover = new JButton("Remover");
+        subPainelRemocao.add(campoRemocaoNome);
+        subPainelRemocao.add(botaoRemover);
+
+        // Subpainel de Listagem
+        JPanel subPainelListagem = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        botaoListar = new JButton("Listar Todos os Produtos");
+        checkboxOrdenar = new JCheckBox("Ordenar por Nome");
+        subPainelListagem.add(botaoListar);
+        subPainelListagem.add(checkboxOrdenar);
+
+        painelAcoes.add(subPainelPesquisa);
+        painelAcoes.add(subPainelRemocao);
+        painelAcoes.add(subPainelListagem);
+
+        add(painelAcoes, BorderLayout.CENTER);
+
+        // Painel de Resultados
+        JPanel painelResultados = new JPanel(new GridLayout(2, 1, 5, 5));
+        painelResultados.setBorder(BorderFactory.createTitledBorder("Resultados"));
+
+        // Área de Resultado da Pesquisa
+        areaResultadoPesquisa = new JTextArea();
+        areaResultadoPesquisa.setEditable(false);
+        JScrollPane scrollPesquisa = new JScrollPane(areaResultadoPesquisa);
+        scrollPesquisa.setBorder(BorderFactory.createTitledBorder("Resultado da Pesquisa"));
+
+        // Área de Lista de Produtos
+        areaListaProdutos = new JTextArea();
+        areaListaProdutos.setEditable(false);
+        JScrollPane scrollLista = new JScrollPane(areaListaProdutos);
+        scrollLista.setBorder(BorderFactory.createTitledBorder("Lista de Produtos"));
+
+        painelResultados.add(scrollPesquisa);
+        painelResultados.add(scrollLista);
+
+        add(painelResultados, BorderLayout.SOUTH);
+
+        // Adicionando ActionListeners aos Botões
+        botaoCadastrarEletronico.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cadastrarProdutoEletronico();
+            }
+        });
+
+        botaoCadastrarAlimento.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cadastrarProdutoAlimento();
+            }
+        });
+
+        botaoPesquisar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pesquisarProduto();
+            }
+        });
+
+        botaoRemover.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                removerProduto();
+            }
+        });
+
+        botaoListar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listarProdutos();
+            }
+        });
+
+        setVisible(true);
+    }
+
+    private void cadastrarProdutoEletronico() {
+        try {
+            String nome = campoNome.getText();
+            double preco = Double.parseDouble(campoPreco.getText());
+            int quantidade = Integer.parseInt(campoQuantidade.getText());
+            String marca = campoMarca.getText();
+            String modelo = campoModelo.getText();
+
+            ProdutoEletronico produto = new ProdutoEletronico(nome, preco, quantidade, marca, modelo);
+            produtoController.cadastrarProduto(produto);
+
+            JOptionPane.showMessageDialog(this, "Produto Eletrônico cadastrado com sucesso!");
+
+            limparCamposCadastro();
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Preço e Quantidade devem ser números válidos.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void cadastrarProdutoAlimento() {
+        try {
+            String nome = campoNome.getText();
+            double preco = Double.parseDouble(campoPreco.getText());
+            int quantidade = Integer.parseInt(campoQuantidade.getText());
+            String dataValidadeStr = campoDataValidade.getText();
+            LocalDate dataValidade = LocalDate.parse(dataValidadeStr);
+
+            ProdutoAlimento produto = new ProdutoAlimento(nome, preco, quantidade, dataValidade);
+            produtoController.cadastrarProduto(produto);
+
+            JOptionPane.showMessageDialog(this, "Produto Alimentício cadastrado com sucesso!");
+
+            limparCamposCadastro();
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Preço e Quantidade devem ser números válidos.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (java.time.format.DateTimeParseException ex) {
+            JOptionPane.showMessageDialog(this, "Formato de data inválido. Use AAAA-MM-DD.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void pesquisarProduto() {
+        String nomePesquisa = campoPesquisaNome.getText();
+        List<Produto> resultados = produtoController.pesquisarProdutoPorNome(nomePesquisa);
+
+        areaResultadoPesquisa.setText(""); // Limpa a área antes de exibir novos resultados
+
+        if (resultados.isEmpty()) {
+            areaResultadoPesquisa.append("Produto não encontrado!\n");
+        } else {
+            for (Produto produto : resultados) {
+                areaResultadoPesquisa.append(produto.toString() + "\n");
+            }
+        }
+    }
+
+    private void removerProduto() {
+        String nomeRemocao = campoRemocaoNome.getText();
+        boolean removido = produtoController.removerProdutoPorNome(nomeRemocao);
+
+        if (removido) {
+            JOptionPane.showMessageDialog(this, "Produto(s) removido(s) com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Nenhum produto encontrado para remoção.");
+        }
+    }
+
+    private void listarProdutos() {
+        boolean ordenar = checkboxOrdenar.isSelected();
+        List<Produto> todosProdutos = produtoController.listarProdutos(ordenar);
+
+        areaListaProdutos.setText(""); // Limpa a área antes de exibir novos resultados
+
+        if (todosProdutos.isEmpty()) {
+            areaListaProdutos.append("Nenhum produto cadastrado.\n");
+        } else {
+            for (Produto produto : todosProdutos) {
+                areaListaProdutos.append(produto.toString() + "\n");
+            }
+        }
+    }
+
+    private void limparCamposCadastro() {
+        campoNome.setText("");
+        campoPreco.setText("");
+        campoQuantidade.setText("");
+        campoMarca.setText("");
+        campoModelo.setText("");
+        campoDataValidade.setText("");
+    }
+}

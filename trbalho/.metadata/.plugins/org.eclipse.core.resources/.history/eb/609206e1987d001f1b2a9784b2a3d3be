@@ -1,0 +1,21 @@
+package ProdutoView;
+
+import controller.ProdutoController;
+import model.Produto;
+import model.ProdutoEletronico;
+import model.ProdutoAlimento;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
+public class ProdutoView extends JFrame {
+	public static void main(String[] args) {
+		JFrame frame = new JFrame();
+		JButton botao = new JButton("me clique");
+		frame.add(botao);
+		frame.setSize(300,300);
+		frame.setVisible(true);
+	}
+
+    
+}

@@ -1,0 +1,53 @@
+package model;
+import java.util.Scanner;
+
+public abstract class Produto implements Comparable<Produto> {
+//abstract indica que essa classe não pode ser instanciada diretamente, so suas subclsses podem	
+//Comparable<Produto> permite que os produtos da classe sejam comparados entre si
+
+	private String nome;
+	private double preco;
+	private int qtdEstoque;
+
+	//Construtor para inicializar os atributos do objeto
+	public Produto(String nome, double preco, int quantidade) {
+		this.nome = nome;
+		this.preco = preco;
+		this.qtdEstoque = quantidade;
+	}
+	
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public double getPreco() {
+		return preco;
+	}
+	public void setPreco(double preco) {
+		this.preco = preco;
+	}
+	public int getQtdEstoque() {
+		return qtdEstoque;
+	}
+	public void setQtdEstoque(int qtdEstoque) {
+		this.qtdEstoque = qtdEstoque;
+	}
+	
+	//Métodos abstratos, serão implementados nas subclasses
+	public abstract void cadastrar(Scanner scan);
+	public abstract void imprimir();
+	
+	//implementação do método compareTo para ordenar os nomes dos produtos
+	@Override
+	public int compareTo(Produto outroProduto) {
+		return this.nome.compareToIgnoreCase(outroProduto.getNome());
+	}
+	
+	@Override
+	public String toString() {
+		 return "Nome: " + nome + "\nPreço: R$" + preco + "\nQuantidade em estoque: " + qtdEstoque;
+	}
+}
+	

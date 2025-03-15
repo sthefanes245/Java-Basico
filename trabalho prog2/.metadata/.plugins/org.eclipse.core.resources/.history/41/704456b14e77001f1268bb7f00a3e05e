@@ -1,0 +1,15 @@
+package programacao.orientada.objetos;
+
+public class Alimento extends Sistema{
+//extends diz que a classe vai herdar da classe Sistema
+	
+	private int dataValidade;
+
+	public Alimento(int dataValidade, String nome, double preco, int quantidade) {
+		this.dataValidade = dataValidade;
+	}
+	
+	
+
+}
+

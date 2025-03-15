@@ -1,0 +1,53 @@
+package controller;
+
+import model.Produto;
+
+import model.ProdutoDAO;
+
+import java.util.List;
+
+public class ProdutoController {
+	//Gerencia a lista de produtos
+	private ProdutoDAO produtoDAO;
+	
+	//Construtor 
+	public ProdutoController() {
+		this.produtoDAO = new ProdutoDAO();
+	}
+	
+	//Esse metodo chama o metodo DAO e adiciona um produto na lista 
+	public void cadastrarProduto(Produto produto) {
+		produtoDAO.adicionarProduto(produto);
+	}
+	
+	//esse metodo pesquisa os produtos pelo nome
+	public List<Produto> pesquisarProdutoPorNome(String nome) {
+		return produtoDAO.pesquisarPorNome(nome);
+	}
+	
+	//remove o produto 
+	public boolean removerProdutoPorNome(String nome) {
+		//pesquisa produtos de acordo com o nome
+		List<Produto> produtosEncontrados = produtoDAO.pesquisarPorNome(nome);
+		if(produtosEncontrados.isEmpty()) {
+			//retorna false caso não encontre
+			return false;
+		}
+		//itera a lista de produtos encontrados e remove
+		for(Produto produto : produtosEncontrados) {
+			produtoDAO.removerProduto(produto);
+		}
+		//retorna true se algum produto for removido
+		return true;
+	}
+	
+	//Metodo que lista todos os produtos 
+	public List<Produto> listarProdutos(boolean ordenar) {
+		return produtoDAO.listarProdutos(ordenar);
+	}
+
+	public void atualizarProduto(Produto produto) {
+		// TODO Auto-generated method stub
+		
+	}
+}

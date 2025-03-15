@@ -1,0 +1,21 @@
+package programacao.orientada.objetos;
+
+public class Alimento extends Sistema{
+//extends diz que a classe vai herdar da classe Sistema
+	
+	private int dataValidade;
+
+	public Alimento(int dataValidade, String nome, double preco, int quantidade) {
+		//consigo receber essas informações da classe pai graças ao super()
+		super(nome, preco, quantidade);
+		this.dataValidade = dataValidade;
+		
+	}
+	
+	//sobreescreverndo 
+	public void imprimirDetalhes() {
+		System.out.println("Data de validade: " + dataValidade);
+	}
+
+}
+

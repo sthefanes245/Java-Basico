@@ -1,0 +1,21 @@
+package programacao.orientada.objetos;
+
+//extends diz que a classe vai herdar da classe Sistema
+public class Eletronico extends Sistema{
+	private String marca;
+	private String modelo;
+
+	//construtor
+	public Eletronico(String marca, String modelo, String nome, double preco, int quantidade) {
+		super(nome, preco, quantidade);
+		this.marca = marca;
+		this.modelo = modelo;
+	}
+	
+	//sobreescreverndo e executando o que tem em imprimirDetalhes na classe pai
+		public void imprimirDetalhes() {
+			super.imprimirDetalhes();
+			System.out.println("Marca: " + marca);
+			System.out.println("Modelo: " + modelo);
+		}
+}

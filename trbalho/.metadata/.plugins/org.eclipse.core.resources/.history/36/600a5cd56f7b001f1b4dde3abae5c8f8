@@ -1,0 +1,27 @@
+package model;
+
+import java.util.Scanner;
+
+public class Testa {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		Produto produto = new Produto();
+		
+		System.out.println("Cadastro de produtos");
+		System.out.println("Escolha qual tipo de produto deseja cadastrar: \n");
+		System.out.println("1-Produto Eletrônico \n");
+		System.out.println("1-Produto Alimento \n");
+		int op = scan.nextInt();
+		
+		if(op == 1) {
+			produto = new ProdutoEletronico();
+		}
+		else {
+			
+		}
+		
+		
+		
+	}
+
+}

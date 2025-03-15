@@ -1,0 +1,34 @@
+package ProdutoView;
+
+public class ProdutoView extends JFrame{
+	private ProdutoController produtoController;
+	
+	//componentes de cadastro
+	private JTextField campoNome;
+	private JTextField campoPreco;
+	private JTextField campoQuantidade;
+	private JTextField campomarca;
+	private JTextField campoModelo;
+	private JButton campoDataValidade;
+	private JButton botaoCadastrarEletronico;
+	
+	//componentes de pesquisa
+	private JTextField campoPesquisaNome;
+	private JButton botaoPequisar;
+	private JTextArea areaResultadoPesquisa;
+	
+	//componentes de remoção
+	private JTextField campoRemocaoNome;
+	private JButton botaoRemover;
+	
+	//componetes de listagem
+	private JButton botaoListar;
+	private JCheckBox checkboxOrdenar;
+	private JTextArea areaListaProdutos;
+	
+	public ProdutoView() {
+		
+	}
+	
+
+}

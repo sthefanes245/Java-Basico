@@ -1,0 +1,44 @@
+package model;
+
+import java.util.Scanner;
+
+public class Testa {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		Produto produto = null;
+		
+		System.out.println("Cadastro de produtos");
+		System.out.println("Escolha qual tipo de produto deseja cadastrar: \n");
+		System.out.println("1-Produto Eletrônico \n");
+		System.out.println("1-Produto Alimento \n");
+		int op = scan.nextInt();
+		
+		if(op == 1) {
+            produto = new ProdutoEletronico(null, null, null);
+        } else if(op == 2) {
+            produto = new ProdutoAlimento(null, null, null);
+        } else {
+            System.out.println("Opção inválida");
+            return; // Encerra o programa
+        }
+        
+        // Realiza o cadastro do produto
+        produto.cadastrar(scan);
+        
+        // Exibe os dados cadastrados
+        System.out.println("\nProduto cadastrado:");
+        System.out.println("Nome: " + produto.getNome());
+        System.out.println("Preço: " + produto.getPreco());
+        
+        // Verifica o tipo de produto para exibir os atributos específicos
+        if(produto instanceof ProdutoAlimento) {
+            System.out.println("Validade: " + ((ProdutoAlimento) produto).getValidade());
+        } else if(produto instanceof ProdutoEletronico) {
+            System.out.println("Garantia: " + ((ProdutoEletronico) produto).getGarantia());
+        }
+		
+		
+		
+	}
+
+}

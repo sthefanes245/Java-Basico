@@ -1,0 +1,51 @@
+package model;
+
+import java.util.Scanner;
+import java.time.LocalDate;
+
+public class ProdutoAlimento extends Produto{
+	//ProdutoAlimento herda os atributos e métodos de Produto
+	private LocalDate dataValidade;
+	
+	//Construtor para inicializar os atributos da classe pai e os atributos específicos
+	public ProdutoAlimento(String nome, double preco, int qtdEstoque, LocalDate dataValidade) {
+		super(nome, preco, qtdEstoque);
+		this.dataValidade = dataValidade;
+	}
+
+	public LocalDate getDataValidade() {
+		return dataValidade;
+	}
+
+	public void setDataValidade(LocalDate dataValidade) {
+		this.dataValidade = dataValidade;
+	}
+	
+	
+	@Override
+	public void cadastrar(Scanner scan) {
+		System.out.println("Digite o nome do produto:");
+        this.setNome(scan.nextLine());      
+        System.out.println("Digite o preço do produto:");
+        this.setPreco(scan.nextDouble());
+        System.out.println("Digite a quantidade do produto:");
+        this.setQtdEstoque(scan.nextInt());
+		
+        scan.nextLine();
+        
+
+        System.out.println("Digite a validade do produto (formato: aaaa-mm-dd):");
+        String dataInput = scan.nextLine();
+        this.setDataValidade(LocalDate.parse(dataInput));
+	}
+
+	@Override
+	public void imprimir() {
+		System.out.println("----- Produto Alimentício -----");
+        System.out.println(super.toString());
+        System.out.println("Data de Validade: " + this.dataValidade);
+        System.out.println("------------------------------");
+	}
+	
+	
+}

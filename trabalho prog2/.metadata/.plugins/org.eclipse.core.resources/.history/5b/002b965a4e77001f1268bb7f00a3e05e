@@ -1,0 +1,7 @@
+package programacao.orientada.objetos;
+
+public class Alimento{
+	private int dataValidade;
+
+}
+

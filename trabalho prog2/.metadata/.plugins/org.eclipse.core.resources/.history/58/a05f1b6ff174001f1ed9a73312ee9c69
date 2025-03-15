@@ -1,0 +1,7 @@
+package programacao.orientada.objetos;
+
+public class sistema {
+	String nome;
+	double preco;
+	int quantidade;
+}

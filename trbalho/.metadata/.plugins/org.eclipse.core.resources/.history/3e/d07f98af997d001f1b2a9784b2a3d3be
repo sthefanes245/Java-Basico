@@ -1,0 +1,26 @@
+package ProdutoView;
+//sliade 4.10
+import controller.ProdutoController;
+import model.Produto;
+import model.ProdutoEletronico;
+import model.ProdutoAlimento;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
+public class ProdutoView implements ActionListener {
+	public static void main(String[] args) {
+		JFrame frame = new JFrame();
+		//cria um objeto JFrame, uma moldura
+		JButton botao = new JButton("me clique");
+		//cria um elemento gráfico, nesse caso um botão escrito "me clique"
+	
+		frame.add(botao);
+		//adicona um elemento gráfico à moldura
+		frame.setSize(300,300);
+		frame.setVisible(true);
+		// esse dois exibem o GUI, fornecem um tamanho e torna visível
+	}
+
+    
+}

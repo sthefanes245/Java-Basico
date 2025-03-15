@@ -1,0 +1,62 @@
+package model;
+
+import java.util.Scanner;
+
+public class ProdutoEletronico extends Produto{
+	private String marca;
+	private String modelo;
+	
+	public ProdutoEletronico(String nome, double preco, int qtdEstoque, String marca, String modelo) {
+		super(nome, preco, qtdEstoque);
+		this.marca = marca;
+		this.modelo = modelo;
+	}
+	
+	public String getMarca() {
+		return marca;
+	}
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
+	public String getModelo() {
+		return modelo;
+	}
+	public void setModelo(String modelo) {
+		this.modelo = modelo;
+	}
+
+	/* Override significa que vou sobrescrever o metodo da superclasse
+	@Override {
+		
+	}*/
+	@Override
+	public void cadastrar(Scanner scan) {
+		System.out.println("Digite o nome do produto:");
+        this.setNome(scan.nextLine());
+        
+        System.out.println("Digite o preço do produto: \n");
+        this.setPreco(scan.nextDouble());
+        
+        System.out.println("Digite a quantidade do produto: \n");
+        this.setQtdEstoque(scan.nextInt());
+		
+        scan.nextLine();
+        
+        System.out.println("Digite a marca do produto: \n");
+        this.setMarca(scan.nextLine());
+        
+        System.out.println("Digite o modelo do produto: \n");
+        this.setModelo(scan.nextLine());
+	}
+
+	@Override
+	public void imprimir() {
+		System.out.println("----- Produto Eletrônico -----");
+        System.out.println(super.toString());
+        System.out.println("Marca: " + this.marca);
+        System.out.println("Modelo: " + this.modelo);
+        System.out.println("------------------------------");
+	}
+
+	
+}

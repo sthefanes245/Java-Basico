@@ -1,0 +1,101 @@
+package programacao.orientada.objetos;
+
+public class ProdutoView {
+	package view;
+
+	import javax.swing.*;
+	import java.awt.*;
+	import java.awt.event.ActionListener;
+
+	public class ProdutoView extends JFrame {
+	    private JTextField nomeField, precoField, quantidadeField, especificoField;
+	    private JTextArea displayArea;
+	    private JButton adicionarButton, listarButton, pesquisarButton, excluirButton;
+	    private JComboBox<String> tipoComboBox;
+
+	    public ProdutoView() {
+	        setTitle("Gerenciador de Produtos");
+	        setSize(500, 400);
+	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+	        JPanel panel = new JPanel(new GridLayout(6, 2));
+
+	        panel.add(new JLabel("Nome:"));
+	        nomeField = new JTextField();
+	        panel.add(nomeField);
+
+	        panel.add(new JLabel("Preço:"));
+	        precoField = new JTextField();
+	        panel.add(precoField);
+
+	        panel.add(new JLabel("Quantidade:"));
+	        quantidadeField = new JTextField();
+	        panel.add(quantidadeField);
+
+	        panel.add(new JLabel("Tipo:"));
+	        tipoComboBox = new JComboBox<>(new String[]{"Alimento", "Eletrônico"});
+	        panel.add(tipoComboBox);
+
+	        panel.add(new JLabel("Marca/Data Validade:"));
+	        especificoField = new JTextField();
+	        panel.add(especificoField);
+
+	        adicionarButton = new JButton("Adicionar Produto");
+	        listarButton = new JButton("Listar Produtos");
+	        pesquisarButton = new JButton("Pesquisar Produto");
+	        excluirButton = new JButton("Excluir Produto");
+
+	        JPanel buttonPanel = new JPanel();
+	        buttonPanel.add(adicionarButton);
+	        buttonPanel.add(listarButton);
+	        buttonPanel.add(pesquisarButton);
+	        buttonPanel.add(excluirButton);
+
+	        displayArea = new JTextArea();
+	        add(panel, BorderLayout.NORTH);
+	        add(new JScrollPane(displayArea), BorderLayout.CENTER);
+	        add(buttonPanel, BorderLayout.SOUTH);
+	    }
+
+	    public String getNome() {
+	        return nomeField.getText();
+	    }
+
+	    public String getPreco() {
+	        return precoField.getText();
+	    }
+
+	    public String getQuantidade() {
+	        return quantidadeField.getText();
+	    }
+
+	    public String getEspecifico() {
+	        return especificoField.getText();
+	    }
+
+	    public String getTipoProduto() {
+	        return tipoComboBox.getSelectedItem().toString();
+	    }
+
+	    public void setDisplayText(String text) {
+	        displayArea.setText(text);
+	    }
+
+	    public void addAdicionarListener(ActionListener listener) {
+	        adicionarButton.addActionListener(listener);
+	    }
+
+	    public void addListarListener(ActionListener listener) {
+	        listarButton.addActionListener(listener);
+	    }
+
+	    public void addPesquisarListener(ActionListener listener) {
+	        pesquisarButton.addActionListener(listener);
+	    }
+
+	    public void addExcluirListener(ActionListener listener) {
+	        excluirButton.addActionListener(listener);
+	    }
+	}
+
+}

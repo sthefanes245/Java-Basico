@@ -1,0 +1,16 @@
+package programacao.orientada.objetos;
+
+public abstract class Sistema{
+	protected String nome;
+	protected double preco;
+	protected int quantidade;
+	
+	//faço um construtor para inicializar o objeto, o que permite que eu crie objetos a partir dessa classe
+	Sistema(String nome, double preco, int quantidade) {
+		this.nome = nome;
+		this.preco = preco;
+		this.quantidade = quantidade;
+	}
+	
+}
+

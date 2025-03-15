@@ -1,0 +1,14 @@
+package programacao.orientada.objetos;
+
+public class Teste {
+
+	public static void main(String[] args) {
+
+		System.out.println
+		
+		Alimento a = new Alimento(12,"Xiaomi", 1899.99, 5);
+		
+		a.imprimirDetalhes();
+	}
+
+}

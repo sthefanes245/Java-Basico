@@ -1,0 +1,13 @@
+package programacao.orientada.objetos;
+
+public class Teste {
+
+	public static void main(String[] args) {
+
+		Sistema s = new Sistema(nome: "Xiaomi", preco: 1800.99, quantidade: 4);
+
+		
+		s.imprimirDetalhes();
+	}
+
+}

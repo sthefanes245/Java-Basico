@@ -1,0 +1,19 @@
+package programacao.orientada.objetos;
+
+//extends diz que a classe vai herdar da classe Sistema
+public class Eletronico extends Produto{
+	private String marca;
+	private String modelo;
+
+	//construtor
+	public Eletronico(String nome, double preco, int quantidade, String marca, String modelo) {
+		super(nome, preco, quantidade);
+		this.marca = marca;
+		this.modelo = modelo;
+	}
+	
+	@Override
+    public String getDescricao() {
+        return "Eletrônico - Nome: " + nome + ", Marca: " + marca + ", Modelo: " + modelo + ", Preço: " + preco + ", Quantidade: " + quantidade;
+    }
+}

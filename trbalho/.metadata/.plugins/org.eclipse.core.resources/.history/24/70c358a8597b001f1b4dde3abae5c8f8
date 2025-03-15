@@ -1,0 +1,22 @@
+package model;
+
+import java.util.Scanner;
+
+public class Testa {
+	public static void main(String[] args) {
+		int op;
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.println("Escolha: \n");
+		System.out.println("1-Produto Eletrônico \n");
+		System.out.println("1-Produto Alimento \n");
+		op = scan.nextInt();
+		
+		
+		
+		
+		
+		
+	}
+
+}

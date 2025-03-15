@@ -1,0 +1,13 @@
+package model;
+
+import java.time.LocalDate;
+
+public class ProdutoAlimento extends Produto{
+	private LocalDate dataValidade;
+	
+	public ProdutoAlimento(String nome, double preco, int qtdEstoque, LocalDate dataValidade) {
+		super(nome, preco, qtdEstoque);
+		this.dataValidade = dataValidade;
+	}
+	
+}

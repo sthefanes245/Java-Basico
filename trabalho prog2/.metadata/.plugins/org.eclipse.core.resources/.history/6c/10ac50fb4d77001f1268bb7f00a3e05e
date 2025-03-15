@@ -1,0 +1,30 @@
+package programacao.orientada.objetos;
+
+public class Sistema{
+	private String nome;
+	private double preco;
+	private int quantidade;
+	
+	//faço um construtor para inicializar o objeto, o que permite que eu crie objetos a partir dessa classe
+	Sistema(String nome, double preco, int quantidade) {
+			this.nome = nome;
+			this.preco = preco;
+			this.quantidade = quantidade;
+	}
+	/*Método setter para definir os detalhes 
+	public void setDetalhes(String nome, double preco, int quantidade) {
+			this.nome = nome;
+			this.preco = preco;
+			this.quantidade = quantidade;
+	}*/
+	//vou imprimir, pode tirar deposi 
+	//Metodo para imprimir as informações
+	public void imprimirDetalhes() {
+		System.out.println("Nome: " + nome);
+		System.out.println("Preço: " + preco);
+		System.out.println("Quantidade em estoque: " + quantidade);
+	}
+	
+	
+}
+

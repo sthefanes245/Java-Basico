@@ -1,0 +1,9 @@
+package javaBasico.lista.aula27;
+
+public class testeEx01 {
+
+	public static void main(String[] args) {
+		Lampada lampada = new Lampada();
+	}
+
+}

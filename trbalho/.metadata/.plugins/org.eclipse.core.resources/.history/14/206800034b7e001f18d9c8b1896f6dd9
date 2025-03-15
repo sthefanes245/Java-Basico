@@ -1,0 +1,252 @@
+package view;
+
+import controller.ProdutoController;
+import model.Produto;
+import model.ProdutoEletronico;
+import model.ProdutoAlimento;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.util.List;
+
+public class ProdutoView extends JFrame {
+    private ProdutoController produtoController;
+    private JTextField campoNome, campoPreco, campoQuantidade, campoMarca, campoModelo, campoDataValidade;
+    private JComboBox<String> tipoProdutoComboBox;
+    private JButton botaoAdicionar, botaoRemover, botaoEditar, botaoListarOrdenado, botaoListarDesordenado;
+    private JTable tabelaProdutos;
+    private JScrollPane scrollPane;
+
+    public ProdutoView() {
+        produtoController = new ProdutoController();
+        inicializarComponentes();
+    }
+
+    private void inicializarComponentes() {
+        setTitle("Gerenciamento de Produtos");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(800, 600);
+        setLayout(new BorderLayout());
+
+        // Criar o painel de cadastro
+        JPanel painelCadastro = criarPainelCadastro();
+        add(painelCadastro, BorderLayout.NORTH);
+
+        // Criar o painel de botões
+        JPanel painelBotoes = criarPainelBotoes();
+        add(painelBotoes, BorderLayout.CENTER);
+
+        // Criar o painel de resultados
+        JPanel painelResultados = criarPainelResultados();
+        add(painelResultados, BorderLayout.SOUTH);
+
+        setVisible(true);
+    }
+
+    private JPanel criarPainelCadastro() {
+        JPanel painelCadastro = new JPanel(new GridLayout(8, 2, 5, 5));
+        painelCadastro.setBorder(BorderFactory.createTitledBorder("Cadastro de Produtos"));
+
+        // Campos de entrada
+        tipoProdutoComboBox = new JComboBox<>(new String[]{"Alimento", "Eletrônico"});
+        campoNome = new JTextField();
+        campoPreco = new JTextField();
+        campoQuantidade = new JTextField();
+        campoMarca = new JTextField();
+        campoModelo = new JTextField();
+        campoDataValidade = new JTextField();
+
+        // Adicionar os campos ao painel
+        painelCadastro.add(new JLabel("Tipo de Produto:"));
+        painelCadastro.add(tipoProdutoComboBox);
+        painelCadastro.add(new JLabel("Nome:"));
+        painelCadastro.add(campoNome);
+        painelCadastro.add(new JLabel("Preço:"));
+        painelCadastro.add(campoPreco);
+        painelCadastro.add(new JLabel("Quantidade:"));
+        painelCadastro.add(campoQuantidade);
+        painelCadastro.add(new JLabel("Marca (Eletrônico):"));
+        painelCadastro.add(campoMarca);
+        painelCadastro.add(new JLabel("Modelo (Eletrônico):"));
+        painelCadastro.add(campoModelo);
+        painelCadastro.add(new JLabel("Data de Validade (Alimento):"));
+        painelCadastro.add(campoDataValidade);
+
+        return painelCadastro;
+    }
+
+    private JPanel criarPainelBotoes() {
+        JPanel painelBotoes = new JPanel();
+        painelBotoes.setLayout(new GridLayout(1, 5, 10, 10));  // Definir layout e espaçamento
+
+        // Botões de ação
+        botaoAdicionar = new JButton("Adicionar Produto");
+        botaoRemover = new JButton("Remover Produto");
+        botaoEditar = new JButton("Editar Produto");
+        botaoListarOrdenado = new JButton("Listar Ordenados");
+        botaoListarDesordenado = new JButton("Listar Não Ordenados");
+
+        // Adicionar os botões ao painel
+        painelBotoes.add(botaoAdicionar);
+        painelBotoes.add(botaoRemover);
+        painelBotoes.add(botaoEditar);
+        painelBotoes.add(botaoListarOrdenado);
+        painelBotoes.add(botaoListarDesordenado);
+
+        // ActionListeners para os botões
+        botaoAdicionar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cadastrarProduto();
+            }
+        });
+
+        botaoRemover.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                removerProduto();
+            }
+        });
+
+        botaoEditar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                editarProduto();
+            }
+        });
+
+        botaoListarOrdenado.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listarProdutos(true); // Ordenado
+            }
+        });
+
+        botaoListarDesordenado.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listarProdutos(false); // Não ordenado
+            }
+        });
+
+        return painelBotoes;
+    }
+
+    private JPanel criarPainelResultados() {
+        JPanel painelResultados = new JPanel(new BorderLayout());
+        painelResultados.setBorder(BorderFactory.createTitledBorder("Resultados"));
+
+        tabelaProdutos = new JTable();
+        scrollPane = new JScrollPane(tabelaProdutos);
+        painelResultados.add(scrollPane, BorderLayout.CENTER);
+
+        return painelResultados;
+    }
+
+    // Método para cadastrar produto
+    private void cadastrarProduto() {
+        try {
+            String nome = campoNome.getText();
+            double preco = Double.parseDouble(campoPreco.getText());
+            int quantidade = Integer.parseInt(campoQuantidade.getText());
+
+            String tipoProduto = (String) tipoProdutoComboBox.getSelectedItem();
+
+            if ("Eletrônico".equals(tipoProduto)) {
+                String marca = campoMarca.getText();
+                String modelo = campoModelo.getText();
+                ProdutoEletronico produto = new ProdutoEletronico(nome, preco, quantidade, marca, modelo);
+                produtoController.cadastrarProduto(produto);
+            } else {
+                LocalDate validade = LocalDate.parse(campoDataValidade.getText());
+                ProdutoAlimento produto = new ProdutoAlimento(nome, preco, quantidade, validade);
+                produtoController.cadastrarProduto(produto);
+            }
+
+            JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!");
+            limparCamposCadastro();
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Preço e Quantidade devem ser números válidos.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao cadastrar produto: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    // Método para remover produto
+    private void removerProduto() {
+        String nome = JOptionPane.showInputDialog(this, "Digite o nome do produto a remover:");
+        boolean removido = produtoController.removerProdutoPorNome(nome);
+
+        if (removido) {
+            JOptionPane.showMessageDialog(this, "Produto removido com sucesso!");
+            listarProdutos(false); // Atualiza a tabela após a remoção
+        } else {
+            JOptionPane.showMessageDialog(this, "Produto não encontrado!");
+        }
+    }
+
+    // Método para editar produto
+    private void editarProduto() {
+        String nome = JOptionPane.showInputDialog(this, "Digite o nome do produto a editar:");
+        Produto produto = produtoController.pesquisarProdutoPorNome(nome).stream().findFirst().orElse(null);
+        if (produto != null) {
+            String novoNome = JOptionPane.showInputDialog(this, "Novo nome:", produto.getNome());
+            double novoPreco = Double.parseDouble(JOptionPane.showInputDialog(this, "Novo preço:", produto.getPreco()));
+            int novaQuantidade = Integer.parseInt(JOptionPane.showInputDialog(this, "Nova quantidade:", produto.getQtdEstoque()));
+
+            produto.setNome(novoNome);
+            produto.setPreco(novoPreco);
+            produto.setQtdEstoque(novaQuantidade);
+
+            produtoController.atualizarProduto(produto);
+            JOptionPane.showMessageDialog(this, "Produto alterado com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Produto não encontrado!");
+        }
+    }
+
+    // Método para listar produtos
+    private void listarProdutos(boolean ordenar) {
+        List<Produto> todosProdutos = produtoController.listarProdutos(ordenar);
+        atualizarTabela(todosProdutos);
+    }
+
+    // Atualizar tabela de produtos
+    private void atualizarTabela(List<Produto> produtos) {
+        String[] colunas = {"Nome", "Preço", "Quantidade", "Marca/Modelo", "Validade"};
+        String[][] dados = new String[produtos.size()][colunas.length];
+
+        for (int i = 0; i < produtos.size(); i++) {
+            Produto produto = produtos.get(i);
+            dados[i][0] = produto.getNome();
+            dados[i][1] = String.valueOf(produto.getPreco());
+            dados[i][2] = String.valueOf(produto.getQtdEstoque());
+
+            if (produto instanceof ProdutoEletronico) {
+                ProdutoEletronico eletronico = (ProdutoEletronico) produto;
+                dados[i][3] = eletronico.getMarca() + "/" + eletronico.getModelo();
+                dados[i][4] = "N/A";
+            } else if (produto instanceof ProdutoAlimento) {
+                ProdutoAlimento alimento = (ProdutoAlimento) produto;
+                dados[i][3] = "N/A";
+                dados[i][4] = alimento.getDataValidade().toString();
+            }
+        }
+
+        tabelaProdutos.setModel(new javax.swing.table.DefaultTableModel(dados, colunas));
+    }
+
+    // Limpar campos após cadastro
+    private void limparCamposCadastro() {
+        campoNome.setText("");
+        campoPreco.setText("");
+        campoQuantidade.setText("");
+        campoMarca.setText("");
+        campoModelo.setText("");
+        campoDataValidade.setText("");
+        tipoProdutoComboBox.setSelectedIndex(0); // Reseta o tipo de produto
+    }
+}

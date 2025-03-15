@@ -1,0 +1,15 @@
+package ProdutoView;
+
+import controller.ProdutoController;
+import model.Produto;
+import model.ProdutoEletronico;
+import model.ProdutoAlimento;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
+public class ProdutoView extends JFrame {
+    private ProdutoController produtoController;
+
+    
+}

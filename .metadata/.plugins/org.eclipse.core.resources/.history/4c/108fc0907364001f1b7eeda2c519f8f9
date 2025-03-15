@@ -1,0 +1,20 @@
+package javaBasico.lista.aula17;
+
+import java.util.Scanner;
+
+public class Ex01 {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		int nota;
+		
+		System.out.println("Informe uma nota de 0 a 10");
+		nota = scan.nextInt();
+		
+		do {
+			System.out.println("Valor inválido");
+			System.out.println("Informe uma nota de 0 a 10");
+			nota = scan.nextInt();
+		} while(nota <= 0 || nota >= 10);
+	}
+
+}

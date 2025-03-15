@@ -1,0 +1,14 @@
+package programacao.orientada.objetos;
+
+public class Eletronico extends Sistema{
+	private String marca;
+	private String modelo;
+
+	//construtor
+	public Eletronico(Strinh marca, String modelo, String nome, double preco, int quantidade) {
+		super();
+		this.marca = marca;
+		this.modelo = modelo;
+	}
+	
+}

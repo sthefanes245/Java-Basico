@@ -1,0 +1,8 @@
+package programacao.orientada.objetos;
+
+public class Eletronico {
+	private String marca;
+	private String modelo;
+
+	
+}

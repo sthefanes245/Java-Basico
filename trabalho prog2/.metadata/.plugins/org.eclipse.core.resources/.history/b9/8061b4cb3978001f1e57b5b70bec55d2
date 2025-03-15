@@ -1,0 +1,21 @@
+package programacao.orientada.objetos;
+
+public class Alimento extends Produto{
+//extends diz que a classe vai herdar da classe Sistema	
+	private String dataValidade;
+
+	//construtor
+	public Alimento(String nome, double preco, int quantidade, String dataValidade) {
+		//consigo receber essas informações da classe pai graças ao super()
+		super(nome, preco, quantidade);
+		this.dataValidade = dataValidade;
+		
+	}
+	
+	@Override
+	public String getDescricao() {
+		return "Alimento - Nome: " + nome + ", Preço: " + preco + ", Quantidade: " + quantidade + ", Validade: " + dataValidade;
+	}
+
+}
+

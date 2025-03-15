@@ -1,0 +1,33 @@
+package programacao.orientada.objetos;
+
+public class Eletronico extends Sistema{
+	private String marca;//para eletronmico 
+	private String modelo;//para eletronmico 
+	
+	
+	
+	public Eletronico(String nome, double preco, int quantidade) {
+		super(nome, preco, quantidade);
+		this.marca = marca;
+		this.modelo = modelo;
+	}
+	public String getMarca() {
+		return marca;
+	}
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
+	public String getModelo() {
+		return modelo;
+	}
+	public void setModelo(String modelo) {
+		this.modelo = modelo;
+	}
+	
+	@Override
+	public int compareTo(Sistema o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+}

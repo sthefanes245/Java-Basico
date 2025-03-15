@@ -1,0 +1,57 @@
+package ProdutoView;
+//sliade 4.10
+import controller.ProdutoController;
+import model.Produto;
+import model.ProdutoEletronico;
+import model.ProdutoAlimento;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import java.awt.event.ActionListener; 
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+public class GUISimplesC{
+JButton botao;
+JFrame frame;
+public static void main(String[] args){
+GUISimplesC gui = new GUISimplesC();
+gui.go();
+}
+public void go(){
+frame = new JFrame();
+frame.setLayout( new FlowLayout() );
+botao = new JButton("me clique!");
+botao.addActionListener( new ManipuladorDeEventosBotoes() );
+frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+frame.add( botao );
+frame.setSize(300,300);
+frame.setVisible( true );
+}
+private class ManipuladorDeEventosBotoes implements ActionListener{
+@Override
+public void actionPerformed ( ActionEvent ev ){
+botao.setText( "fui clicado" );
+}
+}
+}
+
+
+/*
+public class ProdutoView extends JFrame {
+	
+	public static void main(String[] args) {
+		JFrame frame = new JFrame();
+		//cria um objeto JFrame, uma moldura
+		JButton botao = new JButton("me clique");
+		//cria um elemento gráfico, nesse caso um botão escrito "me clique"
+	
+		frame.add(botao);
+		//adicona um elemento gráfico à moldura
+		frame.setSize(300,300);
+		frame.setVisible(true);
+		// esse dois exibem o GUI, fornecem um tamanho e torna visível
+	}
+
+    
+}
+*/

@@ -1,0 +1,10 @@
+package programacao.orientada.objetos;
+
+public abstract class Sistema{
+	protected String nome;
+	protected double preco;
+	protected int quantidade;
+	
+	
+}
+
